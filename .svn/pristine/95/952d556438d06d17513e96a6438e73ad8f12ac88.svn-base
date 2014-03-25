@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dial2Launch</string>
+    <string name="btn_config">Configure</string>
+    <string name="title_set_number">Set number</string>
+    <string-array name="filter">
+        <item>All Apps</item>
+        <item>Configured</item>
+    </string-array>
+
+</resources>

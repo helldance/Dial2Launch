@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dial to Launch</string>
+    <string name="btn_config">Configure</string>
+    <string name="title_set_number">Set number</string>
+    <string-array name="filter">
+        <item>Numbers Set</item>
+        <item>User Apps</item>
+        <item>System Apps</item>
+    </string-array>
+    <string name="title_info">ver 1.0.6 (build 20130226)</string>
+	<string name="info_text">  •\u00A0\u00A0Not all phone apps are listed here, reason being that certain apps do not have a launch activity, and they can not be launched explicitly
+	    &lt;br&gt;&lt;br&gt;© 2013 Ray Y</string>
+	<string name="msg_loading">Loading applications..</string>
+	<string name="tst_no_back_up">No back up file to restore</string>
+	<string name="tst_restore_ok">Settings restored successfully</string>
+	<string name="tst_backup_ok">Back up file created</string>
+	<string name="tst_backup_fail">Failed to create back file on your phone</string>
+	<string name="tst_clear_all">All numbers cleared</string>
+	<string name="diag_sorting">Sorting Apps..</string>
+	<string name="tst_err_dup">Error: number already assigned</string>
+	<string name="tst_no_num_set">No numbers are set yet :(</string>
+</resources>

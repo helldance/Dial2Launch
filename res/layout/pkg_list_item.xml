@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TwoLineListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="4dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/app_icon"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/app_icon" />
+
+    <ImageButton
+        android:id="@+id/btn_set"
+        android:background="@drawable/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="0dp"
+        android:text="@string/btn_config" 
+        android:onClick="setNumber"/>
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:textSize="12sp"
+        android:textColor="#33b5e5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_alignBottom="@+id/app_icon"
+        android:layout_alignLeft="@+id/app_name" />
+    
+    <!-- <TextView
+        android:id="@+id/pkg_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/app_icon"
+        android:layout_toRightOf="@id/app_name" 
+        android:visibility="gone"/> -->
+
+</TwoLineListItem>

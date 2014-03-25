@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dial to Launch</string>
+    <string name="btn_config">Configure</string>
+    <string name="title_set_number">Set number</string>
+    <string-array name="filter">
+        <item>User Apps</item>
+        <item>System Apps</item>
+        <item>Numbers Set</item>
+    </string-array>
+    <string name="title_info">ver 1.0.1 (build 201201215)</string>
+	<string name="info_text">  •\u00A0\u00A0Not all phone apps are listed here, reason being that certain apps do not have a launch activity, and they can not be launched explicitly
+	    &lt;br&gt;&lt;br&gt;© 2012 Ray Y</string>
+</resources>
