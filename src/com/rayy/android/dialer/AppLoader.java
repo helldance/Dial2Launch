@@ -3,10 +3,9 @@
  */
 package com.rayy.android.dialer;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
