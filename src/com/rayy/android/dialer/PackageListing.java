@@ -508,7 +508,11 @@ public class PackageListing extends SherlockFragmentActivity implements ActionBa
 	    } 
 	    else if (id == R.id.reset) {
 	    	resetSetting();
-	    } 
+	    }
+	    else if (id == R.id.account) {
+	    	// start account login or registration
+	    	startActivity(new Intent(mContext, Account.class));
+	    }
 	    
 	    return false;
 	}

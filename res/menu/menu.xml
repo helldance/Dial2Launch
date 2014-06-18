@@ -5,6 +5,11 @@
         android:title="Reset all">
     </item>
     <item
+        android:id="@+id/account"
+        android:title="Account"
+        android:showAsAction="always|withText">
+    </item>
+    <item
         android:id="@+id/info"
         android:title="Info"
         android:showAsAction="always|withText">
