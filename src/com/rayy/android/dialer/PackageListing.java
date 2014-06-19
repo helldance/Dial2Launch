@@ -58,6 +58,10 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.rayy.android.dialer.SimpleTextDialog.OnTextSetListener;
 
 /**
@@ -95,6 +99,8 @@ public class PackageListing extends SherlockFragmentActivity implements ActionBa
 		setContentView(R.layout.gen_list);
 		
 		mContext = PackageListing.this;
+		
+		Parse.initialize(this, Credential.appId, Credential.clientKey);
 		
 		pref = PreferenceManager.getDefaultSharedPreferences(mContext);
 		editor = pref.edit();
@@ -509,12 +515,53 @@ public class PackageListing extends SherlockFragmentActivity implements ActionBa
 	    else if (id == R.id.reset) {
 	    	resetSetting();
 	    }
+	    else if (id == R.id.sync){
+	    	syncWithCloud();
+	    }
 	    else if (id == R.id.account) {
 	    	// start account login or registration
 	    	startActivity(new Intent(mContext, Account.class));
 	    }
+	    else if (id == R.id.logout){
+	    	ParseUser.logOut();
+	    	
+	    	Toast.makeText(mContext, "You have logged out", Toast.LENGTH_SHORT).show();
+	    }
 	    
 	    return false;
+	}
+
+	private void syncWithCloud() {
+		// TODO Auto-generated method stub
+		ParseUser curUser = ParseUser.getCurrentUser();
+		
+		if (curUser != null){
+			Log.i("", curUser.getUsername());
+			
+			Map<String, ?> settingMap = pref.getAll();
+			
+			for (String key: settingMap.keySet()){
+				// table name
+				ParseObject po = new ParseObject("AppSetting");
+				
+				Log.i(key, settingMap.get(key) + "");
+				
+				// column name
+				po.add("appName", key);
+				po.add("number", settingMap.get(key));
+				
+				try {
+					//TODO handle duplicates
+					po.save();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		else {
+			startActivity(new Intent(mContext, Account.class));
+		}
 	}
 
 	private void resetSetting() {	

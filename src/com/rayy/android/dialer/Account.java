@@ -3,6 +3,7 @@
  */
 package com.rayy.android.dialer;
 
+import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -24,7 +25,7 @@ import android.widget.Toast;
  */
 public class Account extends Activity {
 	EditText name, password, email;
-	Button btnReg, btnLogin;
+	Button btnReg, btnLogin, btnReset;
 	String strName, strPass, strEmail;
 	Context ctx;
 	
@@ -61,7 +62,32 @@ public class Account extends Activity {
 			
 		});
 		
-		Parse.initialize(this, Credential.appId, Credential.clientKey);
+		btnReset = (Button) this.findViewById(R.id.reset);
+		btnReset.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				reset();
+				
+			}
+			
+		});
+		
+		//Parse.initialize(this, Credential.appId, Credential.clientKey);
+	}
+
+	protected void reset() {
+		// TODO Auto-generated method stub
+		strEmail = email.getText().toString();
+		
+		try {
+			ParseUser.requestPasswordReset(strEmail);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			Toast.makeText(ctx, e.getMessage(), Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	protected void login() {
@@ -98,9 +124,17 @@ public class Account extends Activity {
 		    if (e == null) {
 		      // Hooray! Let them use the app now.
 		    	Toast.makeText(ctx, "Sign up successful", Toast.LENGTH_SHORT).show();
-		    	
+
 		    	// login automatically
-		    	login();
+		    	ParseUser.logInInBackground(strName, strPass, new LogInCallback(){
+
+					@Override
+					public void done(ParseUser arg0, ParseException arg1) {
+						// TODO Auto-generated method stub
+						Log.i("", "User logged in");
+					}
+		    		
+		    	});
 		    	
 		    	Account.this.finish();
 		    } else {

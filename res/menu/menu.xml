@@ -10,6 +10,11 @@
         android:showAsAction="always|withText">
     </item>
     <item
+        android:id="@+id/sync"
+        android:title="Sync"
+        android:showAsAction="always|withText">
+    </item>
+    <item
         android:id="@+id/info"
         android:title="Info"
         android:showAsAction="always|withText">
@@ -22,5 +27,8 @@
         android:id="@+id/restore"
         android:title="Restore">
     </item>
-
+	<item
+        android:id="@+id/logout"
+        android:title="Logout">
+    </item>
 </menu>
