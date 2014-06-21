@@ -59,6 +59,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.parse.Parse;
+import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -101,6 +102,7 @@ public class PackageListing extends SherlockFragmentActivity implements ActionBa
 		mContext = PackageListing.this;
 		
 		Parse.initialize(this, Credential.appId, Credential.clientKey);
+		ParseAnalytics.trackAppOpened(getIntent());
 		
 		pref = PreferenceManager.getDefaultSharedPreferences(mContext);
 		editor = pref.edit();
@@ -160,8 +162,16 @@ public class PackageListing extends SherlockFragmentActivity implements ActionBa
 			Toast.makeText(mContext, "number already assigned", Toast.LENGTH_SHORT).show();
 		}*/
 		
-		else 
+		else {
 			editor.putString(pkgName, num);
+			
+			// add to parse analytics
+			Map<String, String> dimensions = new HashMap<String, String>();
+			// Define ranges to bucket data points into meaningful segments
+			dimensions.put("appName", pkgName);
+			// Send the dimensions to Parse along with the 'search' event
+			ParseAnalytics.trackEvent("whichApp", dimensions);
+		}
 		
 		editor.commit();
 		
