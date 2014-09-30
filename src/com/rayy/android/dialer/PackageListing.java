@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -61,8 +63,11 @@ import com.actionbarsherlock.view.MenuItem;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
+import com.parse.PushService;
 import com.rayy.android.dialer.SimpleTextDialog.OnTextSetListener;
 
 /**
@@ -101,8 +106,35 @@ public class PackageListing extends SherlockFragmentActivity implements ActionBa
 		
 		mContext = PackageListing.this;
 		
+		// parse integration: data, analytics and push
 		Parse.initialize(this, Credential.appId, Credential.clientKey);
 		ParseAnalytics.trackAppOpened(getIntent());
+		ParseInstallation inst = ParseInstallation.getCurrentInstallation();
+		inst.saveInBackground();
+		//installation.
+		Field [] fields = ParseInstallation.class.getFields();
+		Method [] methods = ParseInstallation.class.getMethods();
+		
+		Log.i("fields", "" + fields.length + " " + methods.length);
+		
+		for (Field f : fields){
+			Log.i(f.getName(), f.getName());
+		}
+		
+		for (Method m : methods){
+			//Log.i(m.getName(), m.invoke(inst, null));
+		}
+		
+		Log.i("fields: ", inst.toString());
+		
+		// subscrible to "Notification" queue
+		PushService.subscribe(mContext, "Notification", PackageListing.class);
+		
+		/* test code */
+		ParsePush push = new ParsePush();
+		push.setChannel("Notification");
+		push.setMessage("The Giants just scored! It's now 2-2 against the Mets.");
+		push.sendInBackground();
 		
 		pref = PreferenceManager.getDefaultSharedPreferences(mContext);
 		editor = pref.edit();
@@ -414,13 +446,13 @@ public class PackageListing extends SherlockFragmentActivity implements ActionBa
         	else if (filter == FILTER_DEFINED){
         		Set<String> defined = pref.getAll().keySet();
         		
-        		Log.i(tag, "keyset size: " + defined.size());
+        		//Log.i(tag, "keyset size: " + defined.size());
         		
         		if (!defined.contains(appInfo.packageName)){
         			//Log.i(tag, ">>>>>not defined yet" + appInfo.packageName);
         			//toRemove.add(i);
         			it.remove();
-        		}
+        		} 
         	}
 
             //Log.i(TAG,"Installed package :"+ appInfo.packageName);
@@ -467,7 +499,7 @@ public class PackageListing extends SherlockFragmentActivity implements ActionBa
         	else if (filter == FILTER_DEFINED){
         		Set<String> defined = pref.getAll().keySet();
         		
-        		Log.i(tag, "keyset size: " + defined.size());
+        		//Log.i(tag, "keyset size: " + defined.size());
         		
         		if (!defined.contains(appInfo.packageName)){
         			//Log.i(tag, ">>>>>not defined yet" + appInfo.packageName);
